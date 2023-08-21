@@ -20,7 +20,8 @@ void mainloop(char **av, char**env)
 
 		if (_getline(&line, &buf_size, 0) == -1)
 		{
-			printf("\n");
+			if (isatty(0))
+				printf("\n");
 			break;
 		}
 
