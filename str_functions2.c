@@ -54,6 +54,15 @@ void free_strarr(char **args)
 
 	free(args);
 }
-void strtrim()
+void strtrim(char *line)
 {
+	int i;
+
+	for (i = 0; line[i] == ' '; i++)
+		line++;
+	i = strlen(line) - 1;
+
+	while (line[i] == ' ' || line[i] == '\n')
+		i--;
+	line[++i] = '\0';
 }
