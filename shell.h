@@ -16,11 +16,11 @@
 
 
 
-void mainloop(int ar, char **av, char **env);
+void mainloop(char **av, char **env);
 void handle_signal(int sig);
 int just_spaces(char *command);
 ssize_t _getline(char **line, size_t *n, int fd);
-int handle_line(char *line, size_t buf_size, int fd); // 0 => break 1=> continue
+int handle_line(char *line, size_t buf_size, int fd);
 char **commands_array(char *line);
 void execute_program(char *line, char **env);
 /*-------------Helper functions---------*/

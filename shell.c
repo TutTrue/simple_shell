@@ -2,14 +2,16 @@
 
 int main(int ar, char **av, char **env)
 {
+	(void)ar;
 	signal(SIGINT, handle_signal);
-	mainloop(ar, av, env);
+	mainloop(av, env);
 	return (0);
 }
-void mainloop(int ar, char **av, char**env)
+void mainloop(char **av, char**env)
 {
 	char *line = NULL;
 	size_t buf_size = 0;
+	(void) av;
 
 	while (1)
 	{
@@ -45,12 +47,14 @@ void handle_signal(int sig)
 }
 int just_spaces(char *command)
 {
-    for (size_t i = 0; i < strlen(command); i++)
-    {
-        if (command[i] != ' ')
-        {
-            return (0);
-        }
-    }
-    return (1);
+	size_t i;
+
+	for (i = 0; i < strlen(command); i++)
+	{
+		if (command[i] != ' ')
+		{
+			return (0);
+		}
+	}
+	return (1);
 }

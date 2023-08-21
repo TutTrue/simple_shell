@@ -30,7 +30,6 @@ char **commands_array(char *line)
 	char *delim = " ";
 	char *token;
 	int i, len = 0;
-
 	
 	for (i = 0; line[i] != '\0'; i++)
 		if (line[i] != *delim)
@@ -49,9 +48,7 @@ char **commands_array(char *line)
 		args[i] = token;
 		i++;
 		token = strtok(NULL, delim);
-	}
-	
-	char *str = args[i - 1];
+	}	
 
 	args[i] = NULL;
 	return (args);
