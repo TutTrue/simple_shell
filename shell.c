@@ -21,7 +21,7 @@ void mainloop(char **av, char**env)
 		if (_getline(&line, &buf_size, 0) == -1)
 		{
 			if (isatty(0))
-				printf("\n");
+			printf("\n");
 			break;
 		}
 
@@ -50,7 +50,7 @@ int just_spaces(char *command)
 {
 	size_t i;
 
-	for (i = 0; i < strlen(command); i++)
+	for (i = 0; i < strlen(command) - 1; i++)
 	{
 		if (command[i] != ' ')
 		{
