@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * _path - .....
  * @env:the env.
@@ -11,18 +12,18 @@ char *_path(char **env)
 
 	while (env[path_idx] != NULL)
 	{
-		if (_strncmp(env[path_idx], "PATH", 4) == 0)
+		if (strncmp(env[path_idx], "PATH", 4) == 0)
 			break;
 		path_idx++;
 	}
 
-	path_len = _strlen(env[path_idx]);
+	path_len = strlen(env[path_idx]);
 
 	path = malloc(path_len - 4);
 	if (!path)
 		return (NULL);
 
-	_strcpy(path, env[path_idx] + 5);
+	strcpy(path, env[path_idx] + 5);
 	return (path);
 }
 /**
@@ -74,14 +75,14 @@ char **concat_command(char **array_path, char *command)
 	{
 		if (i == 0)
 		{
-			concated_array[0] = malloc(_strlen(command) + 1);
-			_strcpy(concated_array[0], command);
+			concated_array[0] = malloc(strlen(command) + 1);
+			strcpy(concated_array[0], command);
 		}
-		total_len = _strlen(command) + _strlen(array_path[i]) + 2;
+		total_len = strlen(command) + strlen(array_path[i]) + 2;
 		concated_array[i + 1] = malloc(total_len);
 		temp = malloc(total_len);
-		_strcpy(temp, array_path[i]);
-		_strcpy(concated_array[i + 1], _strcat(strcat(temp, "/"), command));
+		strcpy(temp, array_path[i]);
+		strcpy(concated_array[i + 1], strcat(strcat(temp, "/"), command));
 		i++;
 		free(temp);
 	}

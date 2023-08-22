@@ -2,26 +2,43 @@
 
 void execute_program(char *line, char **env)
 {
-	pid_t my_pid = fork();
+	int i = 0;
 	int statues;
-	char **args;
+	char **array_path, **args, **concated_command;
+	char *path;
 
+	path = _path(env);
+	array_path = _array_path(path);
 	args = commands_array(line);
-	
-	if (my_pid == 0)
+	concated_command = concat_command(array_path, args[0]);
+
+	while (concated_command[i])
 	{
-		execve(args[0], args, env);
-		free(args);
-		perror("./shell");
-		exit(1);
+		if (access(concated_command[i], X_OK) == 0)
+		{
+			pid_t my_pid = fork();
+			if (my_pid == 0)
+			{
+				execve(concated_command[i], args, env);
+				free(path);                   
+				free(array_path);             
+				free_2darr(concated_command);
+				free(args);
+				perror("./shell");
+				exit(1);
+			}
+			else 
+			{
+				wait(&statues);
+				free(args);
+				free(path);
+				free(array_path);
+				free_2darr(concated_command);
+				return;
+			}
+		}
+		i++;
 	}
-	else 
-	{
-		wait(&statues);
-		free(args);
-		return;
-	}
-		
 }
 
 char **commands_array(char *line)
