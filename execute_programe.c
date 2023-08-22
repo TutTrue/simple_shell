@@ -20,25 +20,20 @@ void execute_program(char *line, char **env)
 			if (my_pid == 0)
 			{
 				execve(concated_command[i], args, env);
-				free(path);                   
-				free(array_path);             
-				free_2darr(concated_command);
-				free(args);
-				perror("./shell");
+				free_all(args, path, array_path, concated_command);
 				exit(1);
 			}
 			else 
 			{
 				wait(&statues);
-				free(args);
-				free(path);
-				free(array_path);
-				free_2darr(concated_command);
+				free_all(args, path, array_path, concated_command);
 				return;
 			}
 		}
 		i++;
 	}
+	perror("./shell");
+	free_all(args, path, array_path, concated_command);
 }
 
 char **commands_array(char *line)
@@ -69,4 +64,11 @@ char **commands_array(char *line)
 
 	args[i] = NULL;
 	return (args);
+}
+void free_all(char **args, char *path, char **array_path, char **concated_command)
+{
+	free(args);
+	free(path);
+	free(array_path);
+	free_2darr(concated_command);
 }
