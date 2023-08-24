@@ -1,0 +1,11 @@
+ls 
+       ls -al
+/bin/ls 
+env
+echo "mohamed"
+dksada
+lsss
+ls -a
+       
+^C
+EOF

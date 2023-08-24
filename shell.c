@@ -11,7 +11,9 @@ void mainloop(char **av, char**env)
 {
 	char *line = NULL;
 	size_t buf_size = 0;
+	int line_number = 0;
 	(void) av;
+
 
 	while (1)
 	{
@@ -31,7 +33,8 @@ void mainloop(char **av, char**env)
 			continue;
 		}	
 		strtrim(line);
-		execute_program(line, env);
+		line_number++;
+		execute_program(line, env, line_number);
 		free(line);
 	}
 }

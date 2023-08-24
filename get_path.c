@@ -17,8 +17,10 @@ char *_path(char **env)
 		path_idx++;
 	}
 
-	path_len = strlen(env[path_idx]);
+	if (!env[path_idx])
+		return NULL;
 
+	path_len = strlen(env[path_idx]);
 	path = malloc(path_len - 4);
 	if (!path)
 		return (NULL);
@@ -36,6 +38,8 @@ char **_array_path(char *path)
 	int i = 0, no_del = 0;
 	char **array_path, *token;
 
+	if (!path)
+		return NULL;
 	while (path[i])
 	{
 		if (path[i] == ':')
@@ -68,6 +72,9 @@ char **concat_command(char **array_path, char *command)
 	while (array_path[i])
 		i++;
 
+	if (!array_path)
+		return NULL;
+
 	concated_array = malloc(sizeof(char *) * (i + 2));
 
 	i = 0;
@@ -97,7 +104,8 @@ char **concat_command(char **array_path, char *command)
 void free_2darr(char **array_path)
 {
 	int i = 0;
-
+	if (!array_path)
+		return;
 	while (array_path[i])
 		free(array_path[i++]);
 	free(array_path[i]);

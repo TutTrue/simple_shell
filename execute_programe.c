@@ -1,6 +1,6 @@
 #include "shell.h"
 
-void execute_program(char *line, char **env)
+void execute_program(char *line, char **env, int line_number)
 {
 	int i = 0;
 	int statues;
@@ -21,7 +21,7 @@ void execute_program(char *line, char **env)
 			{
 				execve(concated_command[i], args, env);
 				free_all(args, path, array_path, concated_command);
-				exit(1);
+				exit(127);
 			}
 			else 
 			{
@@ -32,8 +32,13 @@ void execute_program(char *line, char **env)
 		}
 		i++;
 	}
-	perror("./shell");
+	fprintf(stderr, "./hsh: %d: %s: not found\n", line_number, args[0]);
 	free_all(args, path, array_path, concated_command);
+	if (!isatty(0))
+	{
+		free(line);
+		exit(127);
+	}
 }
 
 char **commands_array(char *line)
@@ -67,8 +72,11 @@ char **commands_array(char *line)
 }
 void free_all(char **args, char *path, char **array_path, char **concated_command)
 {
-	free(args);
-	free(path);
-	free(array_path);
+	if (args)
+		free(args);
+	if (path)
+		free(path);
+	if (array_path)
+		free(array_path);
 	free_2darr(concated_command);
 }

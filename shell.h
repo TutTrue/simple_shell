@@ -20,7 +20,7 @@
 void mainloop(char **av, char **env);
 ssize_t _getline(char **line, size_t *n, int fd);
 char **commands_array(char *line);
-void execute_program(char *line, char **env);
+void execute_program(char *line, char **env, int line_number);
 /*-------------End Main functions---------*/
 /*-------------Helper functions---------*/
 void handle_signal(int sig);
