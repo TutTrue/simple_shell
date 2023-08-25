@@ -30,4 +30,4 @@ void print_list(list_cmd *my_list);
 void free_list(list_cmd *my_list);
 list_cmd *commands_separator(char *line);
 
-#endif // COMMANDS_SEPARATOR_H
+#endif
