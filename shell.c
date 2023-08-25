@@ -1,4 +1,5 @@
 #include "shell.h"
+#include "commands_separator.h"
 
 int main(int ar, char **av, char **env)
 {
@@ -12,6 +13,7 @@ void mainloop(char **av, char**env)
 	char *line = NULL;
 	size_t buf_size = 0;
 	int line_number = 0;
+	list_cmd *sep_cmds;
 	(void) av;
 
 
@@ -23,18 +25,26 @@ void mainloop(char **av, char**env)
 		if (_getline(&line, &buf_size, 0) == -1)
 		{
 			if (isatty(0))
-			printf("\n");
+				printf("\n");
 			break;
 		}
 
-		if (just_spaces(line))
+		sep_cmds = commands_separator(line);
+
+		while (sep_cmds->cur)
 		{
-			free(line);
-			continue;
-		}	
-		strtrim(line);
-		line_number++;
-		execute_program(line, env, line_number);
+			if (just_spaces(sep_cmds->cur->cmd))
+			{
+				//free(line);
+				sep_cmds->cur = sep_cmds->cur->next;
+				continue;
+			}
+			strtrim(sep_cmds->cur->cmd);
+			line_number++;
+			execute_program(sep_cmds->cur->cmd, env, line_number);
+			sep_cmds->cur = sep_cmds->cur->next;
+		}
+		free_list(sep_cmds);
 		free(line);
 	}
 }
