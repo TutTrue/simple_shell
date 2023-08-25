@@ -35,7 +35,6 @@ void mainloop(char **av, char**env)
 		{
 			if (just_spaces(sep_cmds->cur->cmd))
 			{
-				//free(line);
 				sep_cmds->cur = sep_cmds->cur->next;
 				continue;
 			}
