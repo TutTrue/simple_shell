@@ -21,7 +21,7 @@ void execute_program(char *line, char **env, int line_number)
 			{
 				execve(concated_command[i], args, env);
 				free_all(args, path, array_path, concated_command);
-				exit(127);
+				exit(EXIT_FAILURE);
 			}
 			else 
 			{
@@ -32,13 +32,14 @@ void execute_program(char *line, char **env, int line_number)
 		}
 		i++;
 	}
-	fprintf(stderr, "./hsh: %d: %s: not found\n", line_number, args[0]);
-	free_all(args, path, array_path, concated_command);
-	if (!isatty(0))
-	{
-		free(line);
-		exit(127);
-	}
+		fprintf(stderr, "./hsh: %d: %s: not found\n", line_number, args[0]);
+		free_all(args, path, array_path, concated_command);
+		if (!isatty(0))
+		{
+			free(line);
+			exit(127);
+		}
+
 }
 
 char **commands_array(char *line)
