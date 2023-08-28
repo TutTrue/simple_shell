@@ -38,9 +38,13 @@ void mainloop(char **av, char**env)
 				sep_cmds->cur = sep_cmds->cur->next;
 				continue;
 			}
+
 			strtrim(sep_cmds->cur->cmd);
 			line_number++;
-			execute_program(sep_cmds->cur->cmd, env, line_number);
+      if (_strncmp(sep_cmds->cur->cmd, "exit", 4) == 0)
+        handle_exit(sep_cmds->cur->cmd, line_number, sep_cmds);
+      else
+			  execute_program(sep_cmds->cur->cmd, env, line_number);
 			sep_cmds->cur = sep_cmds->cur->next;
 		}
 		free_list(sep_cmds);

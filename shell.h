@@ -9,6 +9,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include "commands_separator.h"
 
 
 
@@ -21,10 +22,11 @@ void mainloop(char **av, char **env);
 ssize_t _getline(char **line, size_t *n, int fd);
 char **commands_array(char *line);
 void execute_program(char *line, char **env, int line_number);
-/*-------------End Main functions---------*/
+/*-------------End ain f);unctions---------*/
 /*-------------Helper functions---------*/
 void handle_signal(int sig);
 int just_spaces(char *command);
+void handle_exit(char *line, int line_number, list_cmd *my_list);
 /*-------------End Helper functions---------*/
 
 /*-------------Path functions---------*/
@@ -41,11 +43,12 @@ int _strlen(char *str);
 int _strncmp(char *s1, char *s2, int count);
 int _strcmp(char *s1, char *s2);
 int _atoi(char *str);
-void free_strarr(char **args);
 void strtrim(char *line);
 /*-------------End String functions---------*/
+
 /*-------------Free functions---------*/
 void free_2darr(char **array_path);
+void free_strarr(char **args);
 void free_all(char **args, char *path, char **array_path,
               char **concated_command);
 /*-------------End Free functions---------*/
