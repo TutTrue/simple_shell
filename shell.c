@@ -43,7 +43,7 @@ void mainloop(char **av, char**env)
 			line_number++;
       if (_strncmp(sep_cmds->cur->cmd, "exit", 4) == 0)
         handle_exit(sep_cmds->cur->cmd, line_number, sep_cmds);
-			else if (_strncmp(sep_cmds->cur->cmd, "exit", 4) == 0)
+			else if (_strncmp(sep_cmds->cur->cmd, "env", 3) == 0)
 				handle_env(env);
       else
 			  execute_program(sep_cmds->cur->cmd, env, line_number);
