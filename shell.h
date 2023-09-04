@@ -27,6 +27,7 @@ void execute_program(char *line, char **env, int line_number);
 void handle_signal(int sig);
 int just_spaces(char *command);
 void handle_exit(char *line, int line_number, list_cmd *my_list);
+void handle_env(char **env);
 /*-------------End Helper functions---------*/
 
 /*-------------Path functions---------*/
