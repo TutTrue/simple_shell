@@ -4,13 +4,25 @@
 void handle_chdir(char *line, int line_number, list_cmd *sep_cmds)
 {
 	char *token;
+	static char old_pwd[BUFSIZE];
 
 	token = strtok(line, " ");
 	token = strtok(NULL, " ");
 
 	if (!token)
+	{
+		chdir(getenv("HOME"));
+		printf("%s\n", getenv("HOME"));
 		return;
+	}
 
+	if (_strncmp(token, "-", 1) == 0)
+	{
+		_strcpy(token, old_pwd);
+		printf("%s\n", token);
+	}
+
+	getcwd(old_pwd, sizeof(old_pwd));
 	if (chdir(token) != 0)
 	{
 		fprintf(stderr,"./hsh: %d: cd: can't cd to %s\n", line_number, token);
@@ -18,7 +30,7 @@ void handle_chdir(char *line, int line_number, list_cmd *sep_cmds)
 		{
 			free(line);
 			free_list(sep_cmds);
-			exit(2);
+			exit(0);
 		}
 	}
 }

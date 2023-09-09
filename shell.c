@@ -47,6 +47,8 @@ void mainloop(char **av, char**env)
 				handle_env(env);
 			else if (_strncmp(sep_cmds->cur->cmd, "cd", 2) == 0)
 				handle_chdir(sep_cmds->cur->cmd, line_number, sep_cmds);
+			else if (_strncmp(sep_cmds->cur->cmd, "pwd", 3) == 0)
+				hande_pwd();
       else
 			  execute_program(sep_cmds->cur->cmd, env, line_number);
 			sep_cmds->cur = sep_cmds->cur->next;
