@@ -17,7 +17,10 @@ void handle_chdir(char *line, int line_number, list_cmd *sep_cmds)
 	}
 
 	if (_strncmp(token, "-", 1) == 0)
+	{
 		_strcpy(token, old_pwd);
+		printf("%s\n", token);
+	}
 
 	getcwd(old_pwd, sizeof(old_pwd));
 	if (chdir(token) != 0)
@@ -25,6 +28,7 @@ void handle_chdir(char *line, int line_number, list_cmd *sep_cmds)
 		fprintf(stderr,"./hsh: %d: cd: can't cd to %s\n", line_number, token);
 		if (!isatty(0))
 		{
+			printf("%s\n", old_pwd);
 			free(line);
 			free_list(sep_cmds);
 			exit(0);
