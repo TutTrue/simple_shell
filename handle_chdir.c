@@ -11,7 +11,8 @@ void handle_chdir(char *line, int line_number, list_cmd *sep_cmds)
 
 	if (!token)
 	{
-		chdir(getenv("HOME"));
+		if (getenv("HOME"))
+			chdir(getenv("HOME"));
 		return;
 	}
 
