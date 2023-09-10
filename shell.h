@@ -12,7 +12,10 @@
 #include "commands_separator.h"
 
 
-
+typedef struct global_s {
+    int exit_code;
+} global;
+extern global G_DATA;
 
 
 

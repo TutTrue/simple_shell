@@ -8,4 +8,6 @@ lsss
 ls -a
        
 ^C
+exit -1
+
 EOF

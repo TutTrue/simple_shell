@@ -27,6 +27,19 @@ void execute_program(char *line, char **env, int line_number)
 			{
 				wait(&statues);
 				free_all(args, path, array_path, concated_command);
+				if (statues)
+				{
+					if (!isatty(0))
+					{
+						free(line);
+						exit(2);
+					}
+					G_DATA.exit_code = 2;
+				}
+				else
+				{
+					G_DATA.exit_code = 0;
+				}
 				return;
 			}
 		}
@@ -34,6 +47,7 @@ void execute_program(char *line, char **env, int line_number)
 	}
 		fprintf(stderr, "./hsh: %d: %s: not found\n", line_number, args[0]);
 		free_all(args, path, array_path, concated_command);
+		G_DATA.exit_code = 127;
 		if (!isatty(0))
 		{
 			free(line);

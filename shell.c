@@ -1,6 +1,7 @@
 #include "shell.h"
 #include "commands_separator.h"
 
+global G_DATA = {0};
 int main(int ar, char **av, char **env)
 {
 	(void)ar;
@@ -41,15 +42,15 @@ void mainloop(char **av, char**env)
 
 			strtrim(sep_cmds->cur->cmd);
 			line_number++;
-      if (_strncmp(sep_cmds->cur->cmd, "exit", 4) == 0)
-        handle_exit(sep_cmds->cur->cmd, line_number, sep_cmds);
+			if (_strncmp(sep_cmds->cur->cmd, "exit", 4) == 0)
+				handle_exit(sep_cmds->cur->cmd, line_number, sep_cmds);
 			else if (_strncmp(sep_cmds->cur->cmd, "env", 3) == 0)
 				handle_env(env);
 			else if (_strncmp(sep_cmds->cur->cmd, "cd", 2) == 0)
 				handle_chdir(sep_cmds->cur->cmd, line_number, sep_cmds);
 			else if (_strncmp(sep_cmds->cur->cmd, "pwd", 3) == 0)
 				hande_pwd();
-      else
+			else
 			  execute_program(sep_cmds->cur->cmd, env, line_number);
 			sep_cmds->cur = sep_cmds->cur->next;
 		}

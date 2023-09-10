@@ -9,7 +9,13 @@ void handle_exit(char *line, int line_number, list_cmd *sep_cmds)
 	token = strtok(line, " ");
 	token = strtok(NULL, " ");
 
-	if (!token || _strcmp(token, "0") == 0)
+	if (!token)
+	{
+		free_list(sep_cmds);
+		free(line);
+		exit(G_DATA.exit_code);
+	}
+	if (_strcmp(token, "0") == 0)
 	{
 		free_list(sep_cmds);
 		free(line);
@@ -30,6 +36,7 @@ void handle_exit(char *line, int line_number, list_cmd *sep_cmds)
 		{
 			fprintf(stderr, "./hsh: %d: exit: Illegal number: %s\n",
 					 line_number, token);
+			G_DATA.exit_code = 2;
 			return;
 		}
 	}
